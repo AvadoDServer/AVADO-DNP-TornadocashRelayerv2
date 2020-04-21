@@ -1,0 +1,24 @@
+{
+  "name": "avado-tornadocashrelayer.public.dappnode.eth",
+  "version": "0.0.6",
+  "description": "AVADO Tornadocash relayer server",
+  "type": "service",
+  "image": {
+    "volumes": [
+      "packagedata:/packagedata"
+    ],
+    "path": "",
+    "hash": "",
+    "size": "",
+    "restart": "always",
+    "environment": [
+      "WEB3PROVIDERS=ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth"
+    ]
+  },
+  "author": "sponnet",
+  "license": "MIT",
+  "links": {
+    "OnboardingWizard": "http://my.avado-tornadocashrelayer.public.dappnode.eth:82"
+  },
+  "avatar": "/ipfs/QmYVR1Lt1qaaLryWGHQBP37Nao4gTjKRboQvRq7iMSzB97"
+}
