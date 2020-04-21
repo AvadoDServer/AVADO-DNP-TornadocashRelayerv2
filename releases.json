@@ -6,5 +6,12 @@
       "dappnode": "Tue, 31 Mar 2020 12:49:39 GMT",
       "http://23.254.227.151:5001": "Tue, 31 Mar 2020 13:59:40 GMT"
     }
+  },
+  "0.0.7": {
+    "hash": "/ipfs/QmY9ehS2KbFD83XvMjePgG6yQDvXWYxAerqgskwNHykE7y",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://23.254.227.151:5001": "Tue, 21 Apr 2020 09:53:06 GMT"
+    }
   }
 }
