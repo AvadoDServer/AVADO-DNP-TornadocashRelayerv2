@@ -10,6 +10,28 @@ const db = new JSONdb(configfile);
 
 console.log("Monitor starting...");
 
+
+// defaults
+const defaults =
+{
+    "RELAYER_FEE": 0.1,
+    "PRIVATE_KEY": "",
+    "NET_ID": 1,
+    "REDIS_URL": "redis://127.0.0.1:6379",
+    "APP_PORT": 8000,
+    "NONCE_WATCHER_INTERVAL": 30,
+    "ALLOWABLE_PENDING_TX_TIMEOUT": 180,
+    "MAX_GAS_PRICE": 100,
+    "GAS_PRICE_BUMP_PERCENTAGE": 20
+};
+
+Object.keys(defaults).map((key) => {
+    const val = defaults[key];
+    if (!db.get(key)) {
+        db.set(key, val);
+    }
+})
+
 const server = restify.createServer({
     name: "MONITOR",
     version: "1.0.0"
@@ -156,10 +178,37 @@ const stopService = () => {
 }
 
 
+const censor = (config) => {
+    // remove sensitive info
+    return Object.keys(config).map((key) => {
+        let r = {};
+        let val = (key === "PRIVATE_KEY" && config.key !== "") ? "***[censored]***" : config[key];
+        r[key] = val;
+        return (r);
+    })
+}
+
 // on startup - check if config file exists & start service if so
 if (fs.existsSync(configfile)) {
-    console.log(`A config file exists - attemtping to start service`);
-    startService();
+    const missingKeys = Object.keys(defaults).reduce((accum, key) => {
+        if (!db.get(key) || db.get(key) === "") {
+            let r = {};
+            r[key] = db.get(key);
+            accum.push(r);
+        }
+        return accum;
+    }, []);
+
+    if (missingKeys.length > 0) {
+        console.log(`Some keys are missing`);
+        console.log(`missing:`);
+        console.log(missingKeys);
+        console.log(`current config:`);
+        console.log(censor(db.JSON()));
+    } else {
+        console.log(`A config file exists - attemtping to start service`);
+        startService();
+    }
 }
 
 server.listen(82, function () {

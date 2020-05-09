@@ -7,7 +7,7 @@ RUN apk add -U git nodejs npm python build-base make g++
 
 RUN git clone https://github.com/tornadocash/relayer.git && \
     cd relayer && \ 
-    git checkout tags/2.4 && \
+    git checkout tags/2.5 && \
     npm i web3@1.2.4 && \
     npm i web3-utils@1.2.4 && \
     npm i && \

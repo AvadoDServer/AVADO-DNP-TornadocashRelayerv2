@@ -1,15 +1,15 @@
 {
   "name": "avado-tornadocashrelayer.public.dappnode.eth",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "AVADO Tornadocash relayer server",
   "type": "service",
   "image": {
     "volumes": [
       "packagedata:/packagedata"
     ],
-    "path": "avado-tornadocashrelayer.public.dappnode.eth_0.0.7.tar.xz",
-    "hash": "/ipfs/QmVnW7SRkoeujFHYrNUDCvxPMCdw46eWXpyJx3zGiRGFUC",
-    "size": 33748184,
+    "path": "",
+    "hash": "",
+    "size": "",
     "restart": "always",
     "environment": [
       "WEB3PROVIDERS=ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth"
