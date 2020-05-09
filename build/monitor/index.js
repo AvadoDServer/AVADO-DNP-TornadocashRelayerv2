@@ -207,6 +207,7 @@ if (fs.existsSync(configfile)) {
         console.log(censor(db.JSON()));
     } else {
         console.log(`A config file exists - attemtping to start service`);
+        console.log(censor(db.JSON()));
         startService();
     }
 }
