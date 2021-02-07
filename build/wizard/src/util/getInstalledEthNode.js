@@ -2,15 +2,11 @@ const autobahn = require('autobahn');
 const url = "ws://my.wamp.dnp.dappnode.eth:8080/ws";
 const realm = "dappnode_admin";
 
-let endpoint;
+let hostname;
 
 const getInstalledEthNode = async (allowedPackages) => {
 
     return new Promise((resolve, reject) => {
-
-        if (endpoint) {
-            return resolve(endpoint);
-        }
 
         const connection = new autobahn.Connection({
             url,
@@ -31,28 +27,37 @@ const getInstalledEthNode = async (allowedPackages) => {
                     return packages;
                 });
 
-            const validPackages = (allowedPackages || "ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth").split(",");
+            const validPackages = (allowedPackages || "ethchain-geth.public.dappnode.eth").split(",");
             console.log("valid packages=", validPackages);
-            endpoint = Object.keys(packages).reduce((accum, packageKey) => {
+            hostname = Object.keys(packages).reduce((accum, packageKey) => {
                 const p = packages[packageKey];
                 if (validPackages.includes(p.name) && !accum) {
                     console.log("Found valid package", p.name);
-                    accum = `http://my.${p.name}:8545`;
+                    accum = `${p.name}`;
                 }
                 return accum;
             }, null)
             connection.close();
-            // if everything else fails - return RYO endpoint
-            return resolve(endpoint || "https://mainnet.eth.cloud.ava.do");
+            // if everything else fails - return RYO hostname
+            if  (!hostname){
+                // no ETH node installed...
+                return resolve();
+            }
+            return resolve(
+                {
+                    http: `http://my.${hostname}:8545`,
+                    ws: `ws://my.${hostname}:8546`
+                }
+            );
         };
-        connection.onclose = function (reason, details) {        
-            if (reason === "closed"){
+        connection.onclose = function (reason, details) {
+            if (reason === "closed") {
                 // normal close - no error
                 return;
             }
             if (details && details.will_retry === false) {
-                console.log("getinstalledEthNode cannot find ETH node",reason);
-                return reject(reason);
+                console.log("getinstalledEthNode cannot find ETH node", reason);
+                return resolve("");
             }
         };
         connection.open();

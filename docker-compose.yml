@@ -1,11 +1,11 @@
 version: '3.4'
 services:
-  avado-tornadocashrelayer.public.dappnode.eth:
-    image: 'avado-tornadocashrelayer.public.dappnode.eth:0.0.9'
+  avado-tornadocashrelayerv2.public.dappnode.eth:
+    image: 'avado-tornadocashrelayerv2.public.dappnode.eth:0.0.4'
     build: ./build
     ports:
       - '8000:8000'
-      - '82:82'
+      - '80:80'
     volumes:
       - 'packagedata:/packagedata'
     restart: always

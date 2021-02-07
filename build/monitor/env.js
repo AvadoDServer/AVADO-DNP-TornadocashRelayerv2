@@ -8,7 +8,7 @@ if (fs.existsSync(fileName)) {
         process.env[key] = env[key];
     })
 } else {
-    console.log(`no config file at ${fileName}`);
+    console.log(`no config file at ${fileName}.. exiting`);
     process.exit();
 }
 

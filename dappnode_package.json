@@ -1,24 +1,29 @@
 {
-  "name": "avado-tornadocashrelayer.public.dappnode.eth",
-  "version": "0.0.9",
-  "description": "AVADO Tornadocash relayer server",
+  "name": "avado-tornadocashrelayerv2.public.dappnode.eth",
+  "version": "0.0.4",
+  "upstream": "4.0.0",
+  "description": "AVADO Tornadocash relayer V2",
   "type": "service",
+  "autoupdate": true,
+  "title": "TornadoCash relayer V2 (mainnet)",
   "image": {
     "volumes": [
       "packagedata:/packagedata"
     ],
-    "path": "avado-tornadocashrelayer.public.dappnode.eth_0.0.9.tar.xz",
-    "hash": "/ipfs/QmU7URaA9AafgaMGXcLBC21W59nUZ6emHbEX4eyBfagjdY",
-    "size": 34452504,
+    "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.0.4.tar.xz",
+    "hash": "/ipfs/QmZT3gv27dni4rio9jWQ6jXdwSghrYZXyYZxDqX37F4cVT",
+    "size": 123476828,
     "restart": "always",
     "environment": [
       "WEB3PROVIDERS=ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth"
-    ]
+    ],
+    "ports": []
   },
   "author": "sponnet",
   "license": "MIT",
   "links": {
-    "OnboardingWizard": "http://my.avado-tornadocashrelayer.public.dappnode.eth:82"
+    "OnboardingWizard": "http://avado-tornadocashrelayerv2.avadopackage.com:80",
+    "Local Relayer": "https://avado-tornadocashrelayerv2.avadopackage.com"
   },
-  "avatar": "/ipfs/QmYVR1Lt1qaaLryWGHQBP37Nao4gTjKRboQvRq7iMSzB97"
+  "avatar": "/ipfs/QmfZU68tYqLBk7oWgGN53g96pajJP6Pt5iDDBrhtLUohxc"
 }

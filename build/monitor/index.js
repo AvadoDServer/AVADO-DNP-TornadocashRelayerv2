@@ -6,31 +6,62 @@ const supervisord = require('supervisord');
 const supervisordclient = supervisord.connect('http://localhost:9001');
 
 const JSONdb = require('simple-json-db');
+const { isArray } = require("util");
 const db = new JSONdb(configfile);
 
 console.log("Monitor starting...");
+
+const relayerENVFile = '/usr/src/tornado-relayer/.env';
 
 
 // defaults
 const defaults =
 {
-    "RELAYER_FEE": 0.1,
-    "PRIVATE_KEY": "",
     "NET_ID": 1,
+    "HTTP_RPC_URL": "",
+    "WS_RPC_URL": "",
+    "ORACLE_RPC_URL": "",
     "REDIS_URL": "redis://127.0.0.1:6379",
     "APP_PORT": 8000,
-    "NONCE_WATCHER_INTERVAL": 30,
-    "ALLOWABLE_PENDING_TX_TIMEOUT": 180,
-    "MAX_GAS_PRICE": 100,
-    "GAS_PRICE_BUMP_PERCENTAGE": 20
+    "PRIVATE_KEY": "",
+    "REGULAR_TORNADO_WITHDRAW_FEE": 0.045,
+    "MINING_SERVICE_FEE": 0.045,
+    "MINING_SERVICE_FEE": 0.045,
+    "TORN_ETH_PRICE": 7000000000000000,
+    "REWARD_ACCOUNT": "",
+    "CONFIRMATIONS": 4,
+    "MAX_GAS_PRICE": 1000,
+    "AGGREGATOR": "0x8cb1436F64a3c33aD17bb42F94e255c4c0E871b2",
 };
 
+// set default values
 Object.keys(defaults).map((key) => {
     const val = defaults[key];
     if (!db.get(key)) {
         db.set(key, val);
     }
 })
+
+// dump config to ENV file
+const writeConfigToENV = () => {
+    const data = db.JSON();
+    if (Array.isArray(data)) {
+        return console.log(`config database is no array - uninitialized ?`);
+    }
+    const logger = fs.createWriteStream(`${relayerENVFile}`, {
+        flags: 'w'
+    })
+    let lines = 0;
+    Object.keys(data).map((k) => {
+        logger.write(`${k}=${data[k]}\n`);
+        lines++;
+    })
+    logger.end();
+    console.log(`${lines} lines written to ${relayerENVFile}`)
+}
+
+writeConfigToENV();
+
 
 const server = restify.createServer({
     name: "MONITOR",
@@ -54,17 +85,18 @@ server.get("/getenv", (req, res, next) => {
 });
 
 
-server.post("/setenv", (req, res, next) => {
+server.post("/setenv", async (req, res, next) => {
     if (!req.body) {
         res.send(400);
     }
     Object.keys(req.body).map(async (key) => {
         const displayVal = (key.toString().includes("PRIVATE")) ? "(hidden)" : req.body[key]
         console.log(`${key}=>${displayVal}`);
-        await db.set(key, req.body[key]);
-        await stopService();
-        await startService();
+        await db.set(key, req.body[key]);       
     })
+    writeConfigToENV();
+    await stopService();
+    await startService();
     res.send(200, db.JSON());
 });
 
@@ -199,6 +231,9 @@ if (fs.existsSync(configfile)) {
         return accum;
     }, []);
 
+    // patch to increase max gas price
+    db.set("MAX_GAS_PRICE", 1000);
+
     if (missingKeys.length > 0) {
         console.log(`Some keys are missing`);
         console.log(`missing:`);
@@ -212,6 +247,6 @@ if (fs.existsSync(configfile)) {
     }
 }
 
-server.listen(82, function () {
+server.listen(80, function () {
     console.log("%s listening at %s", server.name, server.url);
 });
