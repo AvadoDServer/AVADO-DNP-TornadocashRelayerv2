@@ -1,6 +1,6 @@
 {
   "name": "avado-tornadocashrelayerv2.public.dappnode.eth",
-  "version": "0.0.4",
+  "version": "0.1.4",
   "upstream": "4.0.0",
   "description": "AVADO Tornadocash relayer V2",
   "type": "service",
@@ -10,8 +10,8 @@
     "volumes": [
       "packagedata:/packagedata"
     ],
-    "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.0.4.tar.xz",
-    "hash": "/ipfs/QmZT3gv27dni4rio9jWQ6jXdwSghrYZXyYZxDqX37F4cVT",
+    "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.1.4.tar.xz",
+    "hash": "/ipfs/QmYE6THrJWgCBWx3cngr5exui8sWmRP3Pp5pPiLHVT3n51",
     "size": 123476828,
     "restart": "always",
     "environment": [
