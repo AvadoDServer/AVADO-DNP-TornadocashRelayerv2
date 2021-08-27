@@ -44,8 +44,8 @@ const Comp = () => {
             if (res && res.data) {
                 setCurrentEnv(res.data);
                 getServiceStatus("relayer").then(async (status) => {
-                    switch(status.statename){
-                        case  "RUNNING":
+                    switch (status.statename) {
+                        case "RUNNING":
                             console.log("Stopping service");
                             await stopService("relayer");
                             await startService("relayer");
@@ -55,7 +55,7 @@ const Comp = () => {
                         default:
                             console.log(`unknown status ${status.statename}`);
                             await startService("relayer");
-                        }
+                    }
                 })
             }
         });
@@ -280,7 +280,8 @@ const Comp = () => {
                         MINING_SERVICE_FEE: values.REGULAR_TORNADO_WITHDRAW_FEE,
                         PUB_KEY: privateKeyToAddress(values.PRIVATE_KEY),
                         ORACLE_RPC_URL: values.HTTP_RPC_URL,
-                        REWARD_ACCOUNT: privateKeyToAddress(values.PRIVATE_KEY)
+                        REWARD_ACCOUNT: privateKeyToAddress(values.PRIVATE_KEY),
+                        CONFIRMATIONS: 0
                     }).then(() => {
                         setSubmitting(false);
                         setCurrentView("view");
@@ -331,7 +332,7 @@ const Comp = () => {
                                         <div className="container">
                                             <div className="columns is-mobile">
                                                 <div className="column is-8-desktop is-10">
-{/* 
+                                                    {/* 
                                                     <div className="setting">
                                                         <h3 className="is-size-5">Ethereum node to use</h3>
                                                         <p>The URL of the Ethereum node to connect to. This should be your local node</p>

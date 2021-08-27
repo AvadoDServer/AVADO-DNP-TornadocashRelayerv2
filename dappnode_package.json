@@ -1,7 +1,7 @@
 {
   "name": "avado-tornadocashrelayerv2.public.dappnode.eth",
-  "version": "0.1.4",
-  "upstream": "4.0.0",
+  "version": "0.1.15",
+  "upstream": "4.0.17",
   "description": "AVADO Tornadocash relayer V2",
   "type": "service",
   "autoupdate": true,
@@ -10,9 +10,9 @@
     "volumes": [
       "packagedata:/packagedata"
     ],
-    "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.1.4.tar.xz",
-    "hash": "/ipfs/QmYE6THrJWgCBWx3cngr5exui8sWmRP3Pp5pPiLHVT3n51",
-    "size": 123476828,
+    "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.1.15.tar.xz",
+    "hash": "/ipfs/QmYBsGDem3CRn1yzp1b9fnyh9usGCRCaLwaZWzGekTgW8Z",
+    "size": 195590612,
     "restart": "always",
     "environment": [
       "WEB3PROVIDERS=ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth"
@@ -25,5 +25,6 @@
     "OnboardingWizard": "http://avado-tornadocashrelayerv2.avadopackage.com:80",
     "Local Relayer": "https://avado-tornadocashrelayerv2.avadopackage.com"
   },
-  "avatar": "/ipfs/QmfZU68tYqLBk7oWgGN53g96pajJP6Pt5iDDBrhtLUohxc"
+  "avatar": "/ipfs/QmfZU68tYqLBk7oWgGN53g96pajJP6Pt5iDDBrhtLUohxc",
+  "builddate": "2021-08-06T09:24:18.505Z"
 }

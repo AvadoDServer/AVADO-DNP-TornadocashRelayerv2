@@ -9,6 +9,7 @@ RUN yarn
 RUN rm -Rf build && yarn run buildproduction
 
 # certificates
+ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 RUN mkdir /cert
 RUN wget -O /cert/server.crt http://iso.ava.do/server.crt
 RUN wget -O /cert/server.key  http://iso.ava.do/server.key
@@ -17,39 +18,16 @@ RUN ls  -l /cert
 
 # build relayer
 FROM alpine:3.11 as relayer-builder
-# FROM node:12 as relayer-builder
 WORKDIR /usr/src
 RUN apk add -U git openssh yarn python build-base make nodejs npm g++
 
 # RUN git clone https://github.com/AvadoDServer/tornado-relayer.git && \
 RUN git clone https://github.com/tornadocash/tornado-relayer.git && \
-    cd tornado-relayer
-    # git checkout mining
-# RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
-# RUN systemctl restart sshd
-# RUN ssh-add -k /root/.ssh/id_rsa
-
-# RUN mkdir -p -m 0600 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts && echo "Host github.com\n\tUser git" > ~/.ssh/config
-
-# RUN ssh-agent -s
-# RUN ssh-add ~/.ssh/id_rsa
-# RUN ls -la ~/.ssh
-# RUN git ls-remote -h -t ssh://git@github.com/tornadocash/circomlib.git
+    cd tornado-relayer && \
+    git checkout tags/v4.0.17
 
 WORKDIR /usr/src/tornado-relayer
 RUN npm i
-
-# WORKDIR /usr/src/app
-# RUN cp /usr/src/tornado-relayer/package.json ./
-# RUN cp /usr/src/tornado-relayer/yarn.lock ./
-# RUN yarn && yarn cache clean --force
-# RUN echo "before yarn"
-# RUN ls -l /usr/src/tornado-relayer
-# RUN yarn
-# RUN echo "after yarn"
-# RUN ls -l /usr/src/tornado-relayer
-# #&& yarn cache clean --force
-
 
 WORKDIR /usr/src/monitor
 COPY monitor/* ./
