@@ -29,7 +29,7 @@ const defaults =
     "MINING_SERVICE_FEE": 0.045,
     "TORN_ETH_PRICE": 7000000000000000,
     "REWARD_ACCOUNT": "",
-    "CONFIRMATIONS": 4,
+    "CONFIRMATIONS": 0,
     "MAX_GAS_PRICE": 1000,
     "AGGREGATOR": "0x8cb1436F64a3c33aD17bb42F94e255c4c0E871b2",
 };
@@ -41,6 +41,9 @@ Object.keys(defaults).map((key) => {
         db.set(key, val);
     }
 })
+
+// overwrite 
+db.set("CONFIRMATIONS", "0");
 
 // dump config to ENV file
 const writeConfigToENV = () => {
