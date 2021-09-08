@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   avado-tornadocashrelayerv2.public.dappnode.eth:
-    image: 'avado-tornadocashrelayerv2.public.dappnode.eth:0.1.16'
+    image: 'avado-tornadocashrelayerv2.public.dappnode.eth:0.1.17'
     build: ./build
     ports:
       - '8000:8000'
