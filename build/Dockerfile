@@ -24,7 +24,7 @@ RUN apk add -U git openssh yarn python build-base make nodejs npm g++
 # RUN git clone https://github.com/AvadoDServer/tornado-relayer.git && \
 RUN git clone https://github.com/tornadocash/tornado-relayer.git && \
     cd tornado-relayer && \
-    git checkout tags/v4.1.0
+    git checkout tags/v4.0.17
 
 WORKDIR /usr/src/tornado-relayer
 RUN npm i
