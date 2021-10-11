@@ -11,8 +11,8 @@
       "packagedata:/packagedata"
     ],
     "path": "avado-tornadocashrelayerv2.public.dappnode.eth_0.1.23.tar.xz",
-    "hash": "/ipfs/QmWLaQ6BSqt242yKf1ogAJayLWMHGopqBwB4Sqixru6oKi",
-    "size": 198652852,
+    "hash": "/ipfs/QmNZD49iD5uMNvQrAvNYKfLWgG4Bhvjxo5NWuGJAaVqanu",
+    "size": 196925952,
     "restart": "always",
     "environment": [
       "WEB3PROVIDERS=ethchain-geth.public.dappnode.eth,ethchain.dnp.dappnode.eth,avado-dnp-nethermind.public.dappnode.eth"
@@ -26,5 +26,5 @@
     "Local Relayer": "https://avado-tornadocashrelayerv2.avadopackage.com"
   },
   "avatar": "/ipfs/QmfZU68tYqLBk7oWgGN53g96pajJP6Pt5iDDBrhtLUohxc",
-  "builddate": "2021-10-11T20:43:26.792Z"
+  "builddate": "2021-10-11T21:35:29.971Z"
 }
